@@ -1,3 +1,6 @@
+[English](README.md) | [中文版](README_zh.md)
+---
+
 # About Creating My Webpage in Under 24 Hours
 
 > This is a story of AI-empowered practice.
