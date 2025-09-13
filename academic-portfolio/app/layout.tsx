@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { MusicPlayer } from "@/components/music-player" // <-- 1. 导入组件
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -16,10 +17,6 @@ export const metadata: Metadata = {
     "Academic Portfolio",
     "李天召",
     "Tianzhao Li",
-    "计算机视觉",
-    "Computer Vision",
-    "机器学习",
-    "Machine Learning",
   ],
   authors: [{ name: "李天召" }, { name: "Tianzhao Li" }],
   openGraph: {
@@ -41,6 +38,7 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <Suspense fallback={null}>{children}</Suspense>
         <Analytics />
+        <MusicPlayer /> {/* <-- 2. 在这里添加播放器组件 */}
       </body>
     </html>
   )

@@ -59,11 +59,11 @@ export function ProfileSidebar({ language, activeSection, setActiveSection }: Pr
   ]
 
   return (
-    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 bg-sidebar border-r border-sidebar-border overflow-y-auto">
+    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 bg-sidebar overflow-y-auto hide-scrollbar glass-card custom-scrollbar shadow-lg ">
       <div className="p-6 space-y-6">
         <div className="text-center space-y-4">
           <Avatar className="w-32 h-32 mx-auto ring-2 ring-border">
-            <AvatarImage src="/assets/pictures/Tianzhao Li.jpg" alt={content[language].name} />
+            <AvatarImage src="/assets/pictures/Tianzhao Li.jpg" alt={content[language].name} className="object-cover"/>
             <AvatarFallback className="text-2xl bg-muted">{content[language].name.charAt(0)}</AvatarFallback>
           </Avatar>
           <div className="space-y-2">

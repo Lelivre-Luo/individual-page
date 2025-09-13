@@ -24,7 +24,7 @@
   --accent-foreground: oklch(0.25 0.02 180);
   --destructive: oklch(0.6 0.2 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.85 0.01 320); /* Light reed-gray border */
+  --border: oklch(0.85 0.01 320 / 0.2); /* Light reed-gray border */
   --input: oklch(0.95 0.01 85);
   --ring: oklch(0.25 0.02 180 / 0.3);
   --chart-1: oklch(0.25 0.02 180);
@@ -61,7 +61,7 @@
   --accent-foreground: oklch(0.92 0.005 85);
   --destructive: oklch(0.6 0.2 25);
   --destructive-foreground: oklch(0.92 0.005 85);
-  --border: oklch(0.25 0.01 320);
+  --border: oklch(0.25 0.01 320 / 0.2);
   --input: oklch(0.25 0.01 320);
   --ring: oklch(0.45 0.03 180 / 0.3);
   --chart-1: oklch(0.45 0.03 180);
@@ -141,4 +141,40 @@
   .shadow-md {
     box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.06), 0 4px 12px -4px rgb(0 0 0 / 0.06);
   }
+
+  /* For Chrome, Safari and Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* 定义一个用于玻璃拟态的类 */
+  .glass-card {
+    /* 背景颜色使用您的 --card 变量，并降低透明度 */
+    background-color: oklch(var(--card) / 0.5); /* 示例：50% 透明度 */
+    backdrop-filter: blur(10px); /* 关键：背景模糊效果 */
+    -webkit-backdrop-filter: blur(10px); /* Safari 兼容性 */
+
+    /* 可选：添加一些微弱的内部阴影或边框来模拟反光 */
+    border: 1px solid oklch(var(--card-foreground) / 0.1); /* 极浅的边框 */
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.15), /* 第一个阴影：更大的模糊和扩散，增加整体深度 */
+      0 2px 4px rgba(0, 0, 0, 0.08); /* 第二个阴影：较小的、靠近卡片的阴影，增加边缘清晰度 */
+    /* text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); */ /* 如果文字在玻璃上不清晰，可以考虑给文字加一点微弱阴影 */
+  }
+
+  /* 黑暗模式下的玻璃拟态调整 */
+  .dark .glass-card {
+    background-color: oklch(var(--card) / 0.4); /* 暗模式下可以稍微更透明一些 */
+    border: 1px solid oklch(var(--card-foreground) / 0.1);
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.3), /* 增加透明度到30%，使阴影更深 */
+      0 2px 4px rgba(0, 0, 0, 0.15); /* 较小阴影也更深 */
+  }
 }
+
