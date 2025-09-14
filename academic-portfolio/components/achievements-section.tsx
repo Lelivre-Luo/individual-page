@@ -2,186 +2,166 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { FileText, AwardIcon, ExternalLink, Calendar } from "lucide-react"
+import { Award, Trophy, Medal, Star, Calendar, MapPin } from "lucide-react"
 
-interface AchievementsSectionProps {
+interface AchievementsPageProps {
   language: "zh" | "en"
 }
 
-interface Publication {
-  title: string
-  authors: string
-  venue: string
-  year: string
-  type: "journal" | "conference" | "workshop"
-  status?: string
-  link?: string
-}
-
-interface AchievementAward {
+interface Achievement {
   title: string
   organization: string
-  year: string
-  description?: string
+  date: string
+  location?: string
+  description: string
+  type: "award" | "honor" | "scholarship" | "publication" | "under_review"
+  level: "international" | "national" | "regional" | "institutional"
+  authors?: string
+  venue?: string
+  paperurl?: string
+  excerpt?: string
 }
 
-export function AchievementsSection({ language }: AchievementsSectionProps) {
+export function AchievementsSection({ language }: AchievementsPageProps) {
   const content = {
     zh: {
       title: "学术成果",
-      publications: {
-        title: "发表论文",
-        items: [
-          {
-            title: "基于深度学习的高效图像压缩框架研究",
-            authors: "李天召, 齐茂, 李明",
-            venue: "IEEE图像处理汇刊 (TIP)",
-            year: "2024",
-            type: "journal" as const,
-            status: "已发表",
-            link: "https://ieeexplore.ieee.org",
-          },
-          {
-            title: "多模态AI在计算机视觉中的应用",
-            authors: "李天召, 张伟, 齐茂",
-            venue: "数据压缩会议 (DCC)",
-            year: "2024",
-            type: "conference" as const,
-            status: "已发表",
-            link: "https://dcc.org",
-          },
-          {
-            title: "神经网络优化算法的改进研究",
-            authors: "李天召, 王华, 齐茂",
-            venue: "机器学习国际会议 (ICML)",
-            year: "2024",
-            type: "conference" as const,
-            status: "审稿中",
-          },
-        ],
-      },
-      awards: {
-        title: "获奖荣誉",
-        items: [
-          {
-            title: "优秀毕业生",
-            organization: "中国传媒大学",
-            year: "2024",
-            description: "因学术表现优异和研究贡献突出而获得",
-          },
-          {
-            title: "国家奖学金",
-            organization: "中华人民共和国教育部",
-            year: "2023",
-            description: "表彰学术成绩优异的本科生",
-          },
-          {
-            title: "最佳论文奖",
-            organization: "全国大学生创新创业大赛",
-            year: "2023",
-            description: "图像处理算法创新项目",
-          },
-        ],
-      },
+      achievements: [
+        {
+          title: "Li Bai the Youth: An LLM-Powered Virtual Agent for Children's Chinese Poetry Education",
+          organization: "SIGGRAPH Asia 2024",
+          date: "2024年12月",
+          location: "SIGGRAPH Asia 2024",
+          description:
+            "Large language models (LLMs) are increasingly recognized for their potential, but their application in fostering children's poetry learning remains underexplored. This paper introduces Li Bai the Youth, an interactive installation that leverages a virtual agent powered by an LLM. We present a technical pipeline incorporating text-to-speech, lip synchronization, and other functionalities to enable real-time conversation between users and the virtual agent, Li Bai. Additionally, we implemented strategies to enhance the user experience during interaction. Li Bai the Youth offers a novel approach to poetry learning, promoting cultural heritage engagement.",
+          type: "publication" as const,
+          level: "international" as const,
+          authors: "Yurun Chen, Xin Lyu, Tianzhao Li, Zihan Gao",
+          venue: "SIGGRAPH Asia 2024",
+          paperurl: "https://dl.acm.org/doi/10.1145/3681756.3697967",
+          excerpt: "This poster presents 'Li Bai the Youth,' an LLM-powered virtual agent designed to make learning classical Chinese poetry engaging and interactive for children.",
+        },
+        {
+          title: "TRiMM: Transformer-Based Rich Motion Matching for Real-Time multi-modal Interaction in Digital Humans",
+          organization: "拟发CCF B类国际会议",
+          date: "2025年（未发表）",
+          location: "拟投国际会议",
+          description:
+            "Large Language Model (LLM)-driven digital humans have sparked a series of recent studies on co-speech gesture generation systems. However, existing approaches struggle with real-time synthesis and long-text comprehension. This paper introduces Transformer-Based Rich Motion Matching (TRiMM), a novel multi-modal framework for real-time 3D gesture generation. Our method incorporates three modules: 1) a cross-modal attention mechanism to achieve precise temporal alignment between speech and gestures; 2) a long-context autoregressive model with a sliding window mechanism for effective sequence modeling; 3) a large-scale gesture matching system that constructs an atomic action library and enables real-time retrieval. Additionally, we develop a lightweight pipeline implemented in the Unreal Engine for experimentation. Our approach achieves real-time inference at 120 fps and maintains a per-sentence latency of 0.15 seconds on consumer-grade GPUs (Geforce RTX3060). Extensive subjective and objective evaluations on the ZEGGS, and BEAT datasets demonstrate that our model outperforms current state-of-the-art methods. TRiMM enhances the speed of co-speech gesture generation while ensuring gesture quality, enabling LLM-driven digital humans to respond to speech in real time and synthesize corresponding gestures.",
+          type: "under_review" as const,
+          level: "international" as const,
+          authors: "Yueqian Guo, Tianzhao Li, Xin Lyu, Jiehaolin Chen, Zhaohan Wang, Sirui Xiao, Yurun Chen, Yezi He, Helin Li, Fan Zhang",
+          venue: "拟发CCF B类国际会议",
+          paperurl: "https://arxiv.org/abs/2506.01077",
+          excerpt: "A Transformer-based Motion Matching that realize real-time synthesis and long-text comprehension of Virtual Digital Humans.",
+        },
+      ],
       labels: {
-        published: "已发表",
-        underReview: "审稿中",
-        accepted: "已接收",
-        journal: "期刊论文",
-        conference: "会议论文",
-        workshop: "研讨会论文",
-        viewPaper: "查看论文",
+        type: {
+          award: "奖项",
+          honor: "荣誉",
+          scholarship: "奖学金",
+          publication: "发表",
+          under_review: "未发表",
+        },
+        level: {
+          international: "国际级",
+          national: "国家级",
+          regional: "区域级",
+          institutional: "校级",
+        },
+        date: "发表时间",
+        location: "会议地点",
+        organization: "发表机构",
+        authors: "作者",
+        venue: "会议/期刊",
       },
     },
     en: {
-      title: "Academic Achievements",
-      publications: {
-        title: "Publications",
-        items: [
-          {
-            title: "Efficient Image Compression Frameworks with Deep Learning",
-            authors: "Tianzhao Li, Qi Mao, Ming Li",
-            venue: "IEEE Transactions on Image Processing (TIP)",
-            year: "2024",
-            type: "journal" as const,
-            status: "Published",
-            link: "https://ieeexplore.ieee.org",
-          },
-          {
-            title: "Multi-modal AI Applications in Computer Vision",
-            authors: "Tianzhao Li, Wei Zhang, Qi Mao",
-            venue: "Data Compression Conference (DCC)",
-            year: "2024",
-            type: "conference" as const,
-            status: "Published",
-            link: "https://dcc.org",
-          },
-          {
-            title: "Improved Neural Network Optimization Algorithms",
-            authors: "Tianzhao Li, Hua Wang, Qi Mao",
-            venue: "International Conference on Machine Learning (ICML)",
-            year: "2024",
-            type: "conference" as const,
-            status: "Under Review",
-          },
-        ],
-      },
-      awards: {
-        title: "Awards & Honors",
-        items: [
-          {
-            title: "Outstanding Graduate",
-            organization: "Communication University of China",
-            year: "2024",
-            description: "Awarded for exceptional academic performance and research contributions",
-          },
-          {
-            title: "National Scholarship",
-            organization: "Ministry of Education, P.R. China",
-            year: "2023",
-            description: "Recognition for outstanding academic achievement among undergraduates",
-          },
-          {
-            title: "Best Paper Award",
-            organization: "National College Student Innovation Competition",
-            year: "2023",
-            description: "Image processing algorithm innovation project",
-          },
-        ],
-      },
+      title: "Academic Publications",
+      achievements: [
+        {
+          title: "Li Bai the Youth: An LLM-Powered Virtual Agent for Children's Chinese Poetry Education",
+          organization: "SIGGRAPH Asia 2024",
+          date: "December 2024",
+          location: "SIGGRAPH Asia 2024",
+          description:
+            "Large language models (LLMs) are increasingly recognized for their potential, but their application in fostering children's poetry learning remains underexplored. This paper introduces Li Bai the Youth, an interactive installation that leverages a virtual agent powered by an LLM. We present a technical pipeline incorporating text-to-speech, lip synchronization, and other functionalities to enable real-time conversation between users and the virtual agent, Li Bai. Additionally, we implemented strategies to enhance the user experience during interaction. Li Bai the Youth offers a novel approach to poetry learning, promoting cultural heritage engagement.",
+          type: "publication" as const,
+          level: "international" as const,
+          authors: "Yurun Chen, Xin Lyu, Tianzhao Li, Zihan Gao",
+          venue: "SIGGRAPH Asia 2024",
+          paperurl: "https://dl.acm.org/doi/10.1145/3681756.3697967",
+          excerpt: "This poster presents 'Li Bai the Youth,' an LLM-powered virtual agent designed to make learning classical Chinese poetry engaging and interactive for children.",
+        },
+        {
+          title: "TRiMM: Transformer-Based Rich Motion Matching for Real-Time multi-modal Interaction in Digital Humans",
+          organization: "Under Review (CCF B Conference)",
+          date: "2025 (Under Review)",
+          location: "International Conference",
+          description:
+            "Large Language Model (LLM)-driven digital humans have sparked a series of recent studies on co-speech gesture generation systems. However, existing approaches struggle with real-time synthesis and long-text comprehension. This paper introduces Transformer-Based Rich Motion Matching (TRiMM), a novel multi-modal framework for real-time 3D gesture generation. Our method incorporates three modules: 1) a cross-modal attention mechanism to achieve precise temporal alignment between speech and gestures; 2) a long-context autoregressive model with a sliding window mechanism for effective sequence modeling; 3) a large-scale gesture matching system that constructs an atomic action library and enables real-time retrieval. Additionally, we develop a lightweight pipeline implemented in the Unreal Engine for experimentation. Our approach achieves real-time inference at 120 fps and maintains a per-sentence latency of 0.15 seconds on consumer-grade GPUs (Geforce RTX3060). Extensive subjective and objective evaluations on the ZEGGS, and BEAT datasets demonstrate that our model outperforms current state-of-the-art methods. TRiMM enhances the speed of co-speech gesture generation while ensuring gesture quality, enabling LLM-driven digital humans to respond to speech in real time and synthesize corresponding gestures.",
+          type: "under_review" as const,
+          level: "international" as const,
+          authors: "Yueqian Guo, Tianzhao Li, Xin Lyu, Jiehaolin Chen, Zhaohan Wang, Sirui Xiao, Yurun Chen, Yezi He, Helin Li, Fan Zhang",
+          venue: "Under Review (CCF B Conference)",
+          paperurl: "https://arxiv.org/abs/2506.01077",
+          excerpt: "A Transformer-based Motion Matching that realize real-time synthesis and long-text comprehension of Virtual Digital Humans.",
+        },
+      ],
       labels: {
-        published: "Published",
-        underReview: "Under Review",
-        accepted: "Accepted",
-        journal: "Journal Paper",
-        conference: "Conference Paper",
-        workshop: "Workshop Paper",
-        viewPaper: "View Paper",
+        type: {
+          award: "Award",
+          honor: "Honor",
+          scholarship: "Scholarship",
+          publication: "Publication",
+          under_review: "Under Review",
+        },
+        level: {
+          international: "International",
+          national: "National",
+          regional: "Regional",
+          institutional: "Institutional",
+        },
+        date: "Date",
+        location: "Location",
+        organization: "Organization",
+        authors: "Authors",
+        venue: "Venue",
       },
     },
   }
 
-  const getTypeColor = (type: string) => {
+  const getTypeIcon = (type: string) => {
     switch (type) {
-      case "journal":
-        return "bg-blue-100 text-blue-800 border-blue-200"
-      case "conference":
-        return "bg-green-100 text-green-800 border-green-200"
-      case "workshop":
-        return "bg-purple-100 text-purple-800 border-purple-200"
+      case "award":
+        return Trophy
+      case "honor":
+        return Medal
+      case "scholarship":
+        return Star
+      case "publication":
+        return Award
+      case "under_review":
+        return Award
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200"
+        return Award
     }
   }
 
-  const getStatusColor = (status: string) => {
-    const isPublished = status === "Published" || status === "已发表"
-    const isUnderReview = status === "Under Review" || status === "审稿中"
-
-    if (isPublished) return "bg-green-100 text-green-800 border-green-200"
-    if (isUnderReview) return "bg-yellow-100 text-yellow-800 border-yellow-200"
-    return "bg-blue-100 text-blue-800 border-blue-200"
+  const getLevelColor = (level: string) => {
+    switch (level) {
+      case "international":
+        return "bg-purple-100 text-purple-800 border-purple-200"
+      case "national":
+        return "bg-blue-100 text-blue-800 border-blue-200"
+      case "regional":
+        return "bg-green-100 text-green-800 border-green-200"
+      case "institutional":
+        return "bg-orange-100 text-orange-800 border-orange-200"
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200"
+    }
   }
 
   return (
@@ -190,93 +170,101 @@ export function AchievementsSection({ language }: AchievementsSectionProps) {
         <h1 className="text-3xl font-bold text-foreground mb-2 text-balance">{content[language].title}</h1>
       </div>
 
-      {/* Publications Section */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <FileText className="h-6 w-6 text-accent" />
-          <h2 className="text-2xl font-semibold text-foreground">{content[language].publications.title}</h2>
-        </div>
-
-        <div className="space-y-4">
-          {content[language].publications.items.map((pub, index) => (
+      <div className="grid gap-6">
+        {content[language].achievements.map((achievement, index) => {
+          const IconComponent = getTypeIcon(achievement.type)
+          return (
             <Card key={index} className="border-border bg-card/50 shadow-sm">
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 space-y-2">
-                      <h3 className="text-lg font-medium text-foreground leading-tight">{pub.title}</h3>
-                      <p className="text-sm text-muted-foreground">{pub.authors}</p>
-                      <p className="text-sm font-medium text-accent">{pub.venue}</p>
+                  {/* Header with icon and title */}
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 mt-1">
+                      <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                        <IconComponent className="h-6 w-6 text-accent" />
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      <span>{pub.year}</span>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-4">
+                        <h2 className="text-xl font-semibold text-foreground leading-tight">{achievement.title}</h2>
+                        <div className="flex gap-2">
+                          <Badge variant="outline" className={getLevelColor(achievement.level)}>
+                            {content[language].labels.level[achievement.level]}
+                          </Badge>
+                          <Badge variant="secondary">{content[language].labels.type[achievement.type]}</Badge>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className={getTypeColor(pub.type)}>
-                        {content[language].labels[pub.type]}
-                      </Badge>
-                      {pub.status && (
-                        <Badge variant="outline" className={getStatusColor(pub.status)}>
-                          {pub.status}
-                        </Badge>
-                      )}
-                    </div>
+                  {/* Description - full width */}
+                  <div className="text-base text-muted-foreground leading-relaxed">
+                    <p className="indent-8 text-justify">{achievement.description}</p>
+                  </div>
 
-                    {pub.link && (
-                      <Button variant="outline" size="sm" asChild title={content[language].labels.viewPaper}>
-                        <a href={pub.link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </Button>
-                    )}
+                  {/* Details - full width */}
+                  <div className="space-y-2 text-sm">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-accent" />
+                          <span className="font-medium">{content[language].labels.date}:</span>
+                          <span className="text-muted-foreground">{achievement.date}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <Award className="h-4 w-4 text-accent" />
+                          <span className="font-medium">{content[language].labels.organization}:</span>
+                          <span className="text-muted-foreground">{achievement.organization}</span>
+                        </div>
+
+                        {achievement.authors && (
+                          <div className="flex items-start gap-2">
+                            <Award className="h-4 w-4 text-accent mt-0.5" />
+                            <div>
+                              <span className="font-medium">{content[language].labels.authors}:</span>
+                              <span className="text-muted-foreground ml-1" dangerouslySetInnerHTML={{
+                                __html: achievement.authors.replace(/Tianzhao Li/g, '<strong>Tianzhao Li</strong>')
+                              }} />
+                            </div>
+                          </div>
+                        )}
+
+                        {achievement.venue && (
+                          <div className="flex items-center gap-2">
+                            <Award className="h-4 w-4 text-accent" />
+                            <span className="font-medium">{content[language].labels.venue}:</span>
+                            <span className="text-muted-foreground">{achievement.venue}</span>
+                          </div>
+                        )}
+
+                        {achievement.location && (
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-accent" />
+                            <span className="font-medium">{content[language].labels.location}:</span>
+                            <span className="text-muted-foreground">{achievement.location}</span>
+                          </div>
+                        )}
+
+                        {achievement.paperurl && (
+                          <div className="flex items-center gap-2">
+                            <Award className="h-4 w-4 text-accent" />
+                            <span className="font-medium">{language === "zh" ? "论文链接:" : "Paper Link:"}</span>
+                            <a 
+                              href={achievement.paperurl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-accent hover:underline"
+                            >
+                              {language === "zh" ? "查看论文" : "View Paper"}
+                            </a>
+                          </div>
+                        )}
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Awards Section */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <AwardIcon className="h-6 w-6 text-accent" />
-          <h2 className="text-2xl font-semibold text-foreground">{content[language].awards.title}</h2>
-        </div>
-
-        <div className="space-y-4">
-          {content[language].awards.items.map((award, index) => (
-            <Card key={index} className="border-border bg-card/50 shadow-sm">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
-                      <AwardIcon className="h-5 w-5 text-accent" />
-                    </div>
-                  </div>
-
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-lg font-medium text-foreground">{award.title}</h3>
-                      <span className="text-sm text-muted-foreground font-medium">{award.year}</span>
-                    </div>
-
-                    <p className="text-sm font-medium text-accent">{award.organization}</p>
-
-                    {award.description && (
-                      <p className="text-sm text-muted-foreground leading-relaxed">{award.description}</p>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+          )
+        })}
       </div>
     </div>
   )

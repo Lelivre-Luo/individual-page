@@ -3,7 +3,7 @@
 import { ProfileSidebar } from "@/components/profile-sidebar"
 import { Header } from "@/components/header"
 import { EducationSection } from "@/components/education-section"
-import { AchievementsPage } from "@/components/achievements-page"
+import { AchievementsSection } from "@/components/achievements-section"
 import { ProjectsSection } from "@/components/projects-section"
 import { useLanguage } from "@/hooks/use-language"
 import { useState } from "react"
@@ -20,7 +20,7 @@ export default function HomePage() {
         <main className="flex-1 ml-80 p-8">
           <div className="max-w-4xl mx-auto">
             {activeSection === "education" && <EducationSection language={language} />}
-            {activeSection === "achievements" && <AchievementsPage language={language} />}
+            {activeSection === "achievements" && <AchievementsSection language={language} />}
             {activeSection === "projects" && <ProjectsSection language={language} />}
           </div>
         </main>

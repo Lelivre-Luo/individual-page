@@ -136,7 +136,7 @@ export function ProfileSidebar({ language, activeSection, setActiveSection }: Pr
             asChild
             title={language === "zh" ? "访问我的GitHub" : "Visit my GitHub"}
           >
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/Lelivre-Luo" target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
             </a>
           </Button>

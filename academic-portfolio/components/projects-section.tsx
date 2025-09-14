@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
+import { ProjectCard } from "@/components/project-card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Gamepad2, ExternalLink, Github, Calendar, Users, Play, ImageIcon } from "lucide-react"
@@ -46,6 +47,7 @@ export function ProjectsSection({ language }: ProjectsSectionProps) {
           ],
           collaborators: "与Apple公司合作",
           status: "ongoing" as const,
+          links: {},
         },
         {
           title: "多模态智能交互虚拟数字人",
@@ -63,6 +65,7 @@ export function ProjectsSection({ language }: ProjectsSectionProps) {
           collaborators: "与中国传媒大学实验室团队、百度合作",
           status: "ongoing" as const,
           video: "/assets/videos/LibaiTheYouth.mp4",
+          links: {},
         },
         {
           title: "TRiMM",
@@ -79,6 +82,7 @@ export function ProjectsSection({ language }: ProjectsSectionProps) {
           ],
           collaborators: "与实验室团队合作",
           status: "ongoing" as const,
+          links: {},
         },
         {
           title: "Jump Jump @ Kinect",
@@ -95,6 +99,7 @@ export function ProjectsSection({ language }: ProjectsSectionProps) {
           collaborators: "与团队合作开发",
           status: "completed" as const,
           video: "/assets/videos/JumpJumpofKinect.mp4",
+          links: {},
         },
         {
           title: "《数字之心》",
@@ -111,6 +116,7 @@ export function ProjectsSection({ language }: ProjectsSectionProps) {
           ],
           collaborators: "独立项目",
           status: "ongoing" as const,
+          links: {},
         },
       ],
       labels: {
@@ -250,144 +256,16 @@ export function ProjectsSection({ language }: ProjectsSectionProps) {
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground mb-2 text-balance">{content[language].title}</h1>
-      </div>
-
-      <div className="space-y-8">
-        {content[language].projects.map((project, index) => (
-          <div key={index} className="relative">
-            {project.video ? (
-              <div className="absolute -bottom-4 -right-4 z-10 w-96 h-64 bg-card border border-border rounded-lg shadow-lg overflow-hidden">
-                <video 
-                  className="w-full h-full object-cover" 
-                  controls 
-                  poster="/assets/pictures/video-poster.jpg"
-                >
-                  <source src={project.video} type="video/mp4" />
-                  {language === "zh" ? "您的浏览器不支持视频播放" : "Your browser does not support video playback"}
-                </video>
-              </div>
-            ) : (
-              <div className="absolute -bottom-4 -right-4 z-10 w-96 h-64 bg-card border border-border rounded-lg shadow-lg overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
-                  <div className="text-center space-y-4">
-                    <div className="flex justify-center gap-4">
-                      <ImageIcon className="h-8 w-8 text-accent" />
-                      <Play className="h-8 w-8 text-accent" />
-                    </div>
-                    <p className="text-sm text-muted-foreground">{language === "zh" ? "演示内容" : "Demo Content"}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <Card className="border-border bg-card/50 shadow-sm">
-              <CardContent className="p-8">
-                <div className="space-y-6">
-                  {/* Header */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 mt-1">
-                      <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
-                        <Gamepad2 className="h-6 w-6 text-accent" />
-                      </div>
-                    </div>
-
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-start justify-between gap-4">
-                        <h2 className="text-xl font-semibold text-foreground leading-tight">{project.title}</h2>
-                        <Badge variant="outline" className={getStatusColor(project.status)}>
-                          {content[language].labels.status[project.status]}
-                        </Badge>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-accent" />
-                          <span className="font-medium">{content[language].labels.period}:</span>
-                          <span className="text-muted-foreground">{project.period}</span>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <Users className="h-4 w-4 text-accent" />
-                          <span className="font-medium">{content[language].labels.role}:</span>
-                          <span className="text-muted-foreground">{project.role}</span>
-                        </div>
-                      </div>
-
-                      {project.collaborators && (
-                        <p className="text-sm text-muted-foreground">
-                          <span className="font-medium">{content[language].labels.collaborators}:</span>{" "}
-                          {project.collaborators}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-medium text-foreground">{content[language].labels.technologies}:</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <Badge
-                          key={techIndex}
-                          variant="secondary"
-                          className="px-3 py-1 text-xs bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Achievements */}
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-medium text-foreground">{content[language].labels.achievements}:</h3>
-                    <ul className="space-y-2">
-                      {project.achievements.map((achievement, achIndex) => (
-                        <li key={achIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                          <span>{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Links */}
-                  {project.links && (
-                    <div className="flex flex-wrap gap-3 pt-2">
-                      {project.links.github && (
-                        <Button variant="outline" size="sm" asChild title={content[language].labels.links.github}>
-                          <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      )}
-
-                      {project.links.demo && (
-                        <Button variant="outline" size="sm" asChild title={content[language].labels.links.demo}>
-                          <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      )}
-
-                      {project.links.paper && (
-                        <Button variant="outline" size="sm" asChild title={content[language].labels.links.paper}>
-                          <a href={project.links.paper} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        ))}
-      </div>
+    <div className="space-y-12">
+      {content[language].projects.map((project, index) => (
+        <ProjectCard 
+          key={index} 
+          project={project} 
+          language={language} 
+          labels={content[language].labels} 
+          getStatusColor={getStatusColor}
+        />
+      ))}
     </div>
   )
 }
